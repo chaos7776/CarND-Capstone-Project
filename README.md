@@ -1,6 +1,13 @@
 # CarND-Capstone-Project
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
+The System Integration project is the final project of the Udacity Self-Driving Car Engineer Nanodegree. The software architecture is showed below:
+
+*Note: For this project, the obstacle detection node is not implemented*
+
+![image alt text](imgs/Structure.png)
+
+
 ## Perception Subsystem
 
 There are two nodes in this subsystem, the `Obstacle Detection Node` and the `Traffic Light Detection Node`, in this project, only the `Traffic Light Detection Node` needs to be completed.
