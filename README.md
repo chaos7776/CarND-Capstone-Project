@@ -21,14 +21,6 @@ The `Traffic Light Detection Node` subscribes to four topics:
 
 The Traffic Light Detection Node is divided into two parts, the first part is used to detect the state of the traffic lights in the picture captured by the camera, which is completed in `tl_classifier.py`, the second part find the nearest visible traffic light ahead of the vehicle, which is completed in `tl_detector.py`
 
-### Traffic Light Classification
-
-We use the TensorFlow Objection Detection API to detect and classify the traffic light. We do the detection and classification in one stage. 
-
-### Traffic Light Detection
-
-Since the exact location of the traffic lights and parking lines is deterministic, we don't need to be constantly detecting traffic lights. When the traffic signal is far away from us, there is no need to detect the traffic signal. Only when the traffic signal is within the distance we set (200 waypoints), the detection model starts to detect. When the red light is detected, the car will decelerate， and stop before the stop line. When the green light is detected, the car continues to move forward.
-
 ## Plan Subsystem
 
 The Waypoint Updater Node is in this subsystem, we complete this node by two stages:
