@@ -16,17 +16,7 @@ The Traffic Light Detection Node is divided into two parts, the first part is us
 
 ### Traffic Light Classification
 
-We use the TensorFlow Objection Detection API to detect and classify the traffic light. We do the detection and classification in one stage. We test four models:
-
-* SSD-inception
-* SSD-mobile
-* Faster-rcnn-resnet50
-* Faster-rcnn-inception-resnet-v2-atrous
-
-`Detection speed` SSD-mobile > SSD-inception > Faster-rcnn-resnet50 > Faster-rcnn-inception-resnet-v2-atrous
-
-`Detection accuracy` Faster-rcnn-inception-resnet-v2-atrous > Faster-rcnn-resnet50 > SSD-inception > SSD-mobile
-
+We use the TensorFlow Objection Detection API to detect and classify the traffic light. We do the detection and classification in one stage. 
 
 ### Traffic Light Detection
 
@@ -34,14 +24,16 @@ Since the exact location of the traffic lights and parking lines is deterministi
 
 ## Plan Subsystem
 
+The Waypoint Updater Node is in this subsystem, we complete this node by two stages:
 
-Waypoint Updater Node
+At the first stage, we only consider that the car can follow the way but igoring the traffic light. In callback function 'waypoints_cb' and `pose_cb`, we can get all way points and car's position. Then we use function `closest_waypoint` to search the closest point ahead the car in waypoints, then we pass 200 points ahead this closest point as the final waypoints, namely, the car's next path point. And the velocity of all final points are set to be reference speed `40kPh`.
+
+The second stage is that when the traffic light detector is ready for working, we subscribe ros' message `/traffic_waypoint` to get the the stop line point index in waypoints. Then we modify the `pose_cb` function, the mainly change is modify the velocity of some points in final waypoints. It let the car can decelerate to zero velocity before the stop line position.
 
 
 ## Control Subsystem
 
-
-DBW Node
+The DBW Node is in this subsystem, the functionality of this node is controlling the car follows the final way points' setting velocity. In this node, we use the final setting twist velocity (linear velocity and angular velocity) as the input, then output the throttle value, steering angle and brake value. The main implementation of this can be found in the class `Controller`. In this class, we use PID controller to get the corresponding throttle value and brake value, use YawController to get the corresponding steer angle.All details can be found in `dbw_node.py` and `twist_controller.py`.
 
 ## Installation
 
@@ -105,30 +97,3 @@ catkin_make
 source devel/setup.sh
 roslaunch launch/styx.launch
 ```
-
-4. Run the simulator
-
-### Real world testing
-
-1. Download [training bag](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/traffic_light_bag_file.zip) that was recorded on the Udacity self-driving car.
-2. Unzip the file
-
-```bash
-unzip traffic_light_bag_file.zip
-```
-
-3. Play the bag file
-
-```bash
-rosbag play -l traffic_light_bag_file/traffic_light_training.bag
-```
-
-4. Launch your project in site mode
-
-```bash
-cd CarND-Capstone/ros
-roslaunch launch/site.launch
-```
-
-5. Confirm that traffic light detection works on real life images
-
