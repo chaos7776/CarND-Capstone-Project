@@ -34,6 +34,14 @@ The second stage is that when the traffic light detector is ready for working, w
 
 The DBW Node is in this subsystem, the functionality of this node is controlling the car follows the final way points' setting velocity. In this node, we use the final setting twist velocity (linear velocity and angular velocity) as the input, then output the throttle value, steering angle and brake value. The main implementation of this can be found in the class `Controller`. In this class, we use PID controller to get the corresponding throttle value and brake value, use YawController to get the corresponding steer angle.All details can be found in `dbw_node.py` and `twist_controller.py`.
 
+## The Result
+
+The car is driving normally in the simulator
+
+The car stops before the red light
+
+The car arrives at the end
+
 ## Installation
 
 ### Native Installation
