@@ -38,9 +38,15 @@ The DBW Node is in this subsystem, the functionality of this node is controlling
 
 The car is driving normally in the simulator
 
+![image alt text](imgs/drive.png)
+
 The car stops before the red light
 
+![image alt text](imgs/stop.png)
+
 The car arrives at the end
+
+![image alt text](imgs/end.png)
 
 ## Installation
 
